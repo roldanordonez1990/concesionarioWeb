@@ -1,13 +1,18 @@
-<%@ page
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page 
+
 	import="java.util.List, 
 	java.util.HashMap,
+	java.util.Date,
+	java.text.SimpleDateFormat,
 	utils.RequestUtils,
-	model.Concesionario,
-	model.controladores.ConcesionarioControlador"%>
+	model.Cliente,
+	model.controladores.ClienteControlador"%>
 	
 
 <jsp:include page="cabecera.jsp" flush="true">
-	<jsp:param name="tituloDePagina" value="Ficha de concesionario" />
+	<jsp:param name="tituloDePagina" value="Ficha de cliente" />
 </jsp:include>
 
 <%
@@ -16,28 +21,33 @@ HashMap<String, Object> hashMap = RequestUtils.requestToHashMap(request);
 
 // Para plasmar la información de un profesor determinado utilizaremos un parámetro, que debe llegar a este Servlet obligatoriamente
 // El parámetro se llama "idProfesor" y gracias a él podremos obtener la información del profesor y mostrar sus datos en pantalla
-Concesionario conce = null;
+Cliente cli = null;
 // Obtengo el profesor a editar, en el caso de que el profesor exista se cargarán sus datos, en el caso de que no exista quedará a null
 try {
-	int idConcesionario = RequestUtils.getIntParameterFromHashMap(hashMap, "idConcesionario"); // Necesito obtener el id del profesor que se quiere editar. En caso de un alta
+	int idCliente = RequestUtils.getIntParameterFromHashMap(hashMap, "idCliente"); // Necesito obtener el id del profesor que se quiere editar. En caso de un alta
 	// de profesor obtendríamos el valor 0 como idProfesor
-	if (idConcesionario != 0) {
-		conce = (Concesionario) ConcesionarioControlador.getControlador().find(idConcesionario);
+	
+	
+	if (idCliente != 0) {
+		cli = (Cliente) ClienteControlador.getControlador().find(idCliente);
 	}
 } catch (Exception e) {
 	e.printStackTrace();
 }
 // Inicializo unos valores correctos para la presentación del profesor
-if (conce == null) {
-	conce = new Concesionario();
+if (cli == null) {
+	cli = new Cliente();
 }
-if (conce.getCif() == null)
-	conce.setCif("");
-if (conce.getNombre() == null)
-	conce.setNombre("");
-if (conce.getLocalidad() == null)
-	conce.setLocalidad("");
-
+if (cli.getNombre() == null)
+	cli.setNombre("");
+if (cli.getApellidos() == null)
+	cli.setApellidos("");
+if (cli.getLocalidad() == null)
+	cli.setLocalidad("");
+if (cli.getDniNie() == null)
+	cli.setDniNie("");
+if (cli.getFechaNac() == null) 
+	cli.setFechaNac(null);
 
 
 // Ahora debo determinar cuál es la acción que este página debería llevar a cabo, en función de los parámetros de entrada al Servlet.
@@ -53,8 +63,8 @@ String mensajeAlUsuario = "";
 if (RequestUtils.getStringParameterFromHashMap(hashMap, "eliminar") != null) {
 	// Intento eliminar el registro, si el borrado es correcto redirijo la petición hacia el listado de profesores
 	try {
-		ConcesionarioControlador.getControlador().remove(conce);
-		response.sendRedirect(request.getContextPath() + "/jsp/ListadoConcesionario.jsp"); // Redirección del response hacia el listado
+		ClienteControlador.getControlador().remove(cli);
+		response.sendRedirect(request.getContextPath() + "/jsp/ListadoCliente.jsp"); // Redirección del response hacia el listado
 	} catch (Exception ex) {
 		mensajeAlUsuario = "ERROR - Imposible eliminar. Es posible que existan restricciones.";
 	}
@@ -64,16 +74,18 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "eliminar") != null) {
 if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 	// Obtengo todos los datos del profesor y los almaceno en BBDD
 	try {
-		conce.setCif(RequestUtils.getStringParameterFromHashMap(hashMap, "cif"));
-		conce.setNombre(RequestUtils.getStringParameterFromHashMap(hashMap, "nombre"));
-		conce.setLocalidad(RequestUtils.getStringParameterFromHashMap(hashMap, "localidad"));
-		byte[] posibleImagen = RequestUtils.getByteArrayFromHashMap(hashMap, "ficheroImagen");
-		if (posibleImagen != null && posibleImagen.length > 0) {
-	conce.setImagen(posibleImagen);
-		}
+		cli.setNombre(RequestUtils.getStringParameterFromHashMap(hashMap, "nombre"));
+		cli.setApellidos(RequestUtils.getStringParameterFromHashMap(hashMap, "apellido"));
+		cli.setLocalidad(RequestUtils.getStringParameterFromHashMap(hashMap, "localidad"));
+		cli.setDniNie(RequestUtils.getStringParameterFromHashMap(hashMap, "dniNie"));
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date date = sdf.parse(RequestUtils.getStringParameterFromHashMap(hashMap, "fechaNac"));
+		cli.setFechaNac(date);
+		
 
 		// Finalmente guardo el objeto de tipo profesor 
-		ConcesionarioControlador.getControlador().save(conce);
+		ClienteControlador.getControlador().save(cli);
 		mensajeAlUsuario = "Guardado correctamente";
 	} catch (Exception e) {
 		throw new ServletException(e);
@@ -104,43 +116,29 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 			<!-- form user info -->
 			<div class="card">
 				<div class="card-header">
-					<h4 class="mb-0">Ficha de concesionario</h4>
+					<h4 class="mb-0">Ficha de cliente</h4>
 				</div>
 				<div class="card-body">
 
-					<a href="ListadoConcesionario.jsp">Ir al listado de concesionario</a>
+					<a href="ListadoCliente.jsp">Ir al listado de cliente</a>
 					<form id="form1" name="form1" method="post"
-						action="FichaConcesionario.jsp" enctype="multipart/form-data"
+						action="FichaCliente.jsp" enctype="multipart/form-data"
 						class="form" role="form" autocomplete="off">
 						<p />
-						<img class="mx-auto d-block rounded-circle"
-							src="../utils/DownloadImagenConcesionario?idConcesionario=<%=conce.getId()%>"
-							width='100px' height='100px' />
-						<p />
-						<input type="hidden" name="idConcesionario"
-							value="<%=conce.getId()%>" />
-						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label"
-								for="ficheroImagen">Imagen:</label>
-							<div class="col-lg-9">
-								<input name="ficheroImagen" class="form-control-file"
-									type="file" id="ficheroImagen" />
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-control-label"
-								for="cif">Cif:</label>
-							<div class="col-lg-9">
-								<input name="cif" class="form-control" type="text"
-									id="cif" value="<%=conce.getCif()%>" />
-							</div>
-						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label"
 								for="nombre">Nombre:</label>
 							<div class="col-lg-9">
 								<input name="nombre" class="form-control" type="text"
-									id="nombre" value="<%=conce.getNombre()%>" />
+									id="nombre" value="<%=cli.getNombre()%>" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="apellidos">Apellidos:</label>
+							<div class="col-lg-9">
+								<input name="apellidos" class="form-control" type="text"
+									id="apellidos" value="<%=cli.getApellidos()%>" />
 							</div>
 						</div>
 						<div class="form-group row">
@@ -148,10 +146,26 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 								for="localidad">Localidad:</label>
 							<div class="col-lg-9">
 								<input name="localidad" class="form-control" type="text"
-									id="localidad" value="<%=conce.getLocalidad()%>" />
+									id="localidad" value="<%=cli.getLocalidad()%>" />
 							</div>
 						</div>
-						
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="dniNie">DniNie:</label>
+							<div class="col-lg-9">
+								<input name="dniNie" class="form-control" type="text"
+									id="dniNie" value="<%=cli.getDniNie()%>" />
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="fechaNac">Fecha Nacimiento:</label>
+							<div class="col-lg-9">
+								<input name="fechaNac" class="form-control" type="text"
+									id="fechaNac" value="<%=cli.getFechaNac()%>" />
+							</div>
+						</div>
+	
 						<div class="form-group row">
 							<div class="col-lg-9">
 								<input type="submit" name="guardar" class="btn btn-primary"

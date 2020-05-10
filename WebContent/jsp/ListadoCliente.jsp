@@ -17,6 +17,7 @@
 				<th>Apellidos</th>
 				<th>Fecha Nacimiento</th>
 				<th>Localidad</th>
+				<th>Activo</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,12 +29,14 @@
 			%>
 			<tr>
 				<td><a
-					href="fichaConcesionario.jsp?idConcesionario=<%=cli.getId()%>"> <%=cli.getDniNie()%>
+					href="FichaCliente.jsp?idCliente=<%=cli.getId()%>"> <%=cli.getDniNie()%>
 				</a></td>
 				<td><%=cli.getNombre()%></td>
 				<td><%=cli.getApellidos()%></td>
 				<td><%=cli.getFechaNac()%></td>
 				<td><%=cli.getLocalidad()%></td>
+				<td><%=cli.getActivo()%></td>
+				
 			</tr>
 			<%
 				}
@@ -43,6 +46,6 @@
 	</table>
 	<p />
 	<input type="submit" class="btn btn-primary" name="nuevo" value="Nuevo"
-		onclick="window.location='fichaProfesor.jsp?idProfesor=0'" />
+		onclick="window.location='FichaCliente.jsp?idCliente=0'" />
 </div>
 <%@ include file="pie.jsp"%>

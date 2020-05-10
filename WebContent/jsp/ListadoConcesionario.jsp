@@ -39,6 +39,6 @@
 	</table>
 	<p />
 	<input type="submit" class="btn btn-primary" name="nuevo" value="Nuevo"
-		onclick="window.location='fichaProfesor.jsp?idProfesor=0'" />
+		onclick="window.location='FichaConcesionario.jsp?idConcesionario=0'" />
 </div>
 <%@ include file="pie.jsp"%>

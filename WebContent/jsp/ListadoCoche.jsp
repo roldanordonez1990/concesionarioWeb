@@ -1,5 +1,7 @@
 <%@ page
 	import="java.util.List,
+	model.Fabricante,
+	model.controladores.FabricanteControlador,
 	model.Coche,
 	model.controladores.CocheControlador"%>
 
@@ -13,6 +15,7 @@
 		<thead class="thead-dark">
 			<tr>
 				<th>Bastidor</th>
+				<th>Fabricante</th>
 				<th>Color</th>
 				<th>Modelo</th>
 			</tr>
@@ -28,6 +31,7 @@
 				<td><a
 					href="FichaCoche.jsp?idCoche=<%=co.getId()%>"> <%=co.getBastidor()%>
 				</a></td>
+				<td><%=co.getFabricante()%></td>
 				<td><%=co.getColor()%></td>
 				<td><%=co.getModelo()%></td>
 			</tr>
@@ -39,6 +43,6 @@
 	</table>
 	<p />
 	<input type="submit" class="btn btn-primary" name="nuevo" value="Nuevo"
-		onclick="window.location='fichaProfesor.jsp?idProfesor=0'" />
+		onclick="window.location='FichaCoche.jsp?idCoche=0'" />
 </div>
 <%@ include file="pie.jsp"%>
