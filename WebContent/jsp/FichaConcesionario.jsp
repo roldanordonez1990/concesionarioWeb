@@ -113,6 +113,8 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 						action="FichaConcesionario.jsp" enctype="multipart/form-data"
 						class="form" role="form" autocomplete="off">
 						<p />
+						<input type="hidden" name="idConcesionario"
+							value="<%=conce.getId()%>" />
 						<img class="mx-auto d-block rounded-circle"
 							src="../utils/DownloadImagenConcesionario?idConcesionario=<%=conce.getId()%>"
 							width='100px' height='100px' />

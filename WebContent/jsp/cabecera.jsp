@@ -11,16 +11,27 @@
   <title><%= (tituloDePagina != null)? tituloDePagina : "Sin título" %></title>
 </head>
 <body>
-<div class="container-fluid">
-<nav class="navbar navbar-expand-sm bg-dark justify-content-center">
 
+<div class="container-fluid">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu">
+         <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse justify-content-center " id="menu">
+     
+     
           <nav class="navbar-nav">
+       
+          	  <a class="nav-link text-white" href=../index.html>Inicio</a>
               <a class="nav-link text-white" href=ListadoConcesionario.jsp>Concesionario</a>
               <a class="nav-link text-white" href=ListadoCliente.jsp>Cliente</a>
               <a class="nav-link text-white" href=ListadoCoche.jsp>Coche</a>
               <a class="nav-link text-white" href=ListadoFabricante.jsp>Fabricante</a>
+              <a class="nav-link text-white" href=ListadoVentas.jsp>Ventas</a>
+             
           </nav>
+     </div>
 </nav>
 </div>
-</body>
-</html>
+
+

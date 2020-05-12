@@ -1,35 +1,39 @@
 <%@ page
 	import="java.util.List,
-	model.Concesionario,
-	model.controladores.ConcesionarioControlador"%>
+	model.Venta,
+	model.controladores.VentaControlador"%>
 
 <jsp:include page="cabecera.jsp" flush="true">
-	<jsp:param name="tituloDePagina" value="Listado de concesionarios" />
+	<jsp:param name="tituloDePagina" value="Listado de ventas" />
 </jsp:include>
 
 <div class="container">
-	<h4 style=text-align:start>Listado de Concesionario</h4>
+	<h4 style=text-align:start>Listado de Ventas</h4>
 	<table class="table table-hover">
 		<thead class="thead bg-success text-white">
 			<tr>
-				<th>Cif</th>
-				<th>Nombre</th>
-				<th>Localidad</th>
+				<th>Fecha de venta</th>
+				<th>Precio de venta</th>
+				<th>Cliente</th>
+				<th>Coche</th>
+				<th>Concesionario</th>
 			</tr>
 		</thead>
 		<tbody>
 			<%
 				// Hasta la fila anterior ha llegado la primera fila de títulos de la tabla de profesores del centro educativo
 			// En las siguietnes líneas se crea una fila "elemento <tr>" por cada fila de la tabla de BBDD "profesor"
-			List<Concesionario> concesionarios = ConcesionarioControlador.getControlador().findAll();
-			for (Concesionario conce : concesionarios) {
+			List<Venta> ventas = VentaControlador.getControlador().findAll();
+			for (Venta venta : ventas) {
 			%>
 			<tr>
 				<td><a
-					href="FichaConcesionario.jsp?idConcesionario=<%=conce.getId()%>"> <%=conce.getCif()%>
+					href="FichaVenta.jsp?idVenta=<%=venta.getId()%>"> <%=venta.getFecha()%>
 				</a></td>
-				<td><%=conce.getNombre()%></td>
-				<td><%=conce.getLocalidad()%></td>
+				<td><%=venta.getPrecioVenta()%></td>
+				<td><%=venta.getCliente()%></td>
+				<td><%=venta.getCoche()%></td>
+				<td><%=venta.getConcesionario()%></td>
 			</tr>
 			<%
 				}
@@ -39,6 +43,6 @@
 	</table>
 	<p />
 	<input type="submit" class="btn bg-success text-white" name="nuevo" value="Nuevo"
-		onclick="window.location='FichaConcesionario.jsp?idConcesionario=0'" />
+		onclick="window.location='FichaVenta.jsp?idVenta=0'" />
 </div>
 <%@ include file="pie.jsp"%>

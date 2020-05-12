@@ -25,7 +25,7 @@
 			%>
 			<tr>
 				<td><a
-					href="fichaConcesionario.jsp?idConcesionario=<%=fab.getId()%>"> <%=fab.getCif()%>
+					href="FichaFabricante.jsp?idFabricante=<%=fab.getId()%>"> <%=fab.getCif()%>
 				</a></td>
 				<td><%=fab.getNombre()%></td>
 			</tr>
@@ -36,7 +36,7 @@
 		</tbody>
 	</table>
 	<p />
-	<input type="submit" class="btn btn-primary" name="nuevo" value="Nuevo"
-		onclick="window.location='fichaProfesor.jsp?idProfesor=0'" />
+	<input type="submit" class="btn bg-success text-white" name="nuevo" value="Nuevo"
+		onclick="window.location='FichaFabricante.jsp?idFabricante=0'" />
 </div>
 <%@ include file="pie.jsp"%>

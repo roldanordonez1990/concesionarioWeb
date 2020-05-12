@@ -74,9 +74,8 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 	try {
 		co.setBastidor(RequestUtils.getStringParameterFromHashMap(hashMap, "bastidor"));
 		co.setColor(RequestUtils.getStringParameterFromHashMap(hashMap, "color"));
-		co.setModelo(RequestUtils.getStringParameterFromHashMap(hashMap, "localidad"));
-		co.setFabricante((Fabricante) FabricanteControlador.getControlador()
-				.find(RequestUtils.getIntParameterFromHashMap(hashMap, "idFabricante")));
+		co.setModelo(RequestUtils.getStringParameterFromHashMap(hashMap, "modelo"));
+		co.setFabricante((Fabricante) FabricanteControlador.getControlador().find(RequestUtils.getIntParameterFromHashMap(hashMap, "idFabricante")));
 
 		// Finalmente guardo el objeto de tipo profesor 
 		CocheControlador.getControlador().save(co);
@@ -119,6 +118,8 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 						action="FichaCoche.jsp" enctype="multipart/form-data"
 						class="form" role="form" autocomplete="off">
 						<p />
+						<input type="hidden" name="idCoche"
+							value="<%=co.getId()%>" />
 						<div class="form-group row">
 							<label class="col-lg-3 col-form-label form-control-label"
 								for="bastidor">Bastidor:</label>

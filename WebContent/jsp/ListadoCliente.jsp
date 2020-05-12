@@ -45,7 +45,7 @@
 		</tbody>
 	</table>
 	<p />
-	<input type="submit" class="btn btn-primary" name="nuevo" value="Nuevo"
+	<input type="submit" class="btn bg-success text-white" name="nuevo" value="Nuevo"
 		onclick="window.location='FichaCliente.jsp?idCliente=0'" />
 </div>
 <%@ include file="pie.jsp"%>
