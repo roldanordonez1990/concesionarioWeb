@@ -1,7 +1,4 @@
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page 
-
+<%@ page
 	import="java.util.List, 
 	java.util.HashMap,
 	java.util.Date,
@@ -9,15 +6,19 @@
 	utils.RequestUtils,
 	model.Cliente,
 	model.controladores.ClienteControlador"%>
-	
 
 <jsp:include page="cabecera.jsp" flush="true">
 	<jsp:param name="tituloDePagina" value="Ficha de cliente" />
 </jsp:include>
 
 <%
+//Damos el formato a la fecha
+SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 	// Obtengo una HashMap con todos los parámetros del request, sea este del tipo que sea;
 HashMap<String, Object> hashMap = RequestUtils.requestToHashMap(request);
+
+
 
 // Para plasmar la información de un profesor determinado utilizaremos un parámetro, que debe llegar a este Servlet obligatoriamente
 // El parámetro se llama "idProfesor" y gracias a él podremos obtener la información del profesor y mostrar sus datos en pantalla
@@ -49,6 +50,9 @@ if (cli.getDniNie() == null)
 if (cli.getFechaNac() == null) 
 	cli.setFechaNac(null);
 
+if (cli.getActivo() == true)
+	cli.setActivo(false);
+
 
 // Ahora debo determinar cuál es la acción que este página debería llevar a cabo, en función de los parámetros de entrada al Servlet.
 // Las acciones que se pueden querer llevar a cabo son tres:
@@ -75,14 +79,17 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 	// Obtengo todos los datos del profesor y los almaceno en BBDD
 	try {
 		cli.setNombre(RequestUtils.getStringParameterFromHashMap(hashMap, "nombre"));
-		cli.setApellidos(RequestUtils.getStringParameterFromHashMap(hashMap, "apellido"));
+		cli.setApellidos(RequestUtils.getStringParameterFromHashMap(hashMap, "apellidos"));
 		cli.setLocalidad(RequestUtils.getStringParameterFromHashMap(hashMap, "localidad"));
 		cli.setDniNie(RequestUtils.getStringParameterFromHashMap(hashMap, "dniNie"));
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
-		Date date = sdf.parse(RequestUtils.getStringParameterFromHashMap(hashMap, "fechaNac"));
-		cli.setFechaNac(date);
 		
+			
+			cli.setFechaNac(sdf.parse(RequestUtils.getStringParameterFromHashMap(hashMap, "fechaNac")));
+			
+		
+		
+		cli.setActivo(Boolean.valueOf(RequestUtils.getStringParameterFromHashMap(hashMap, "activo")));
 
 		// Finalmente guardo el objeto de tipo profesor 
 		ClienteControlador.getControlador().save(cli);
@@ -162,7 +169,20 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 								for="fechaNac">Fecha Nacimiento:</label>
 							<div class="col-lg-9">
 								<input name="fechaNac" class="form-control" type="text"
-									id="fechaNac" value="<%=cli.getFechaNac()%>" />
+									id="fechaNac" value="<%= ((cli.getFechaNac() != null) ? sdf.format(cli.getFechaNac()) : "") %>" />
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label class="col-lg-3 col-form-label form-control-label"
+								for="activo">Activo:</label>
+							<div class="col-lg-9">
+								<select name="activo" id="activo"
+									class="form-control">
+									<option value="<%=cli.getActivo()%>"
+										<%= ((cli.getActivo() == true) ? "selected=\"selected\"" : false) %>><%=Boolean.valueOf(cli.getActivo()) %></option>
+								
+								</select>
 							</div>
 						</div>
 	

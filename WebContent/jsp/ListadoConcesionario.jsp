@@ -8,9 +8,9 @@
 </jsp:include>
 
 <div class="container">
-	<h1>Listado de Concesionario</h1>
+	<h4 style=text-align:start>Listado de Concesionario</h4>
 	<table class="table table-hover">
-		<thead class="thead-dark">
+		<thead class="thead bg-success text-white">
 			<tr>
 				<th>Cif</th>
 				<th>Nombre</th>

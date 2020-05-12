@@ -10,9 +10,9 @@
 </jsp:include>
 
 <div class="container">
-	<h1>Listado de Coches</h1>
+	<h4 style=text-align:start>Listado de Coches</h4>
 	<table class="table table-hover">
-		<thead class="thead-dark">
+		<thead class="thead bg-success text-white">
 			<tr>
 				<th>Bastidor</th>
 				<th>Fabricante</th>

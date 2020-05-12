@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page 
 
 	import="java.util.List, 
@@ -16,6 +17,8 @@
 <%
 	// Obtengo una HashMap con todos los parámetros del request, sea este del tipo que sea;
 HashMap<String, Object> hashMap = RequestUtils.requestToHashMap(request);
+
+
 
 // Para plasmar la información de un profesor determinado utilizaremos un parámetro, que debe llegar a este Servlet obligatoriamente
 // El parámetro se llama "idProfesor" y gracias a él podremos obtener la información del profesor y mostrar sus datos en pantalla

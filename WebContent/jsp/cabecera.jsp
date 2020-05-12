@@ -11,3 +11,16 @@
   <title><%= (tituloDePagina != null)? tituloDePagina : "Sin título" %></title>
 </head>
 <body>
+<div class="container-fluid">
+<nav class="navbar navbar-expand-sm bg-dark justify-content-center">
+
+          <nav class="navbar-nav">
+              <a class="nav-link text-white" href=ListadoConcesionario.jsp>Concesionario</a>
+              <a class="nav-link text-white" href=ListadoCliente.jsp>Cliente</a>
+              <a class="nav-link text-white" href=ListadoCoche.jsp>Coche</a>
+              <a class="nav-link text-white" href=ListadoFabricante.jsp>Fabricante</a>
+          </nav>
+</nav>
+</div>
+</body>
+</html>
