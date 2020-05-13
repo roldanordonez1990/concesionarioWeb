@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import model.Coche;
 import model.Controlador;
+import model.Fabricante;
 import model.Venta;
 
 public class VentaControlador extends Controlador {
@@ -116,6 +117,37 @@ public class VentaControlador extends Controlador {
 		List<Venta> resultado = (List<Venta>) q.getResultList();
 		em.close();
 		return resultado;
+	}
+	
+	/**
+	 * 
+	 * @param cliente Este método nos limitará los resultados con un límite
+	 * @return
+	 */
+	
+	public List<Venta> findAllLimited (int limit, int offset) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		Query q = em.createQuery("SELECT c FROM Venta c", Venta.class);
+		q.setMaxResults(limit);
+		q.setFirstResult(offset);
+		List<Venta> resultado = (List<Venta>) q.getResultList();
+		em.close();
+		return resultado;
+	}
+	
+	/**
+	 * 
+	 * @param cliente
+	 * @return Este método nos devuelve un entero con la cantidad total de registros
+	 */
+	
+	public int numRegistros() {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		Query q = em.createNativeQuery("SELECT count(*) FROM Venta");
+		Long cantidad = (Long) q.getSingleResult();
+		em.close();
+		return cantidad.intValue();
+		
 	}
 	
 	public static String toString (Venta venta) {

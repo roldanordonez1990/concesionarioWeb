@@ -98,8 +98,8 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 		<div class="mx-auto col-sm-6">
 			<!-- form user info -->
 			<div class="card">
-				<div class="card-header">
-					<h4 class="mb-0">Ficha de fabricante</h4>
+				<div class="card-header bg-success text-white">
+					<h4 class="mb-0" style="text-align:center">Ficha de fabricante</h4>
 				</div>
 				<div class="card-body">
 
@@ -130,7 +130,7 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 						
 						<div class="form-group row">
 							<div class="col-lg-9">
-								<input type="submit" name="guardar" class="btn btn-primary"
+								<input type="submit" name="guardar" class="btn bg-success text-white"
 									value="Guardar" /> <input type="submit" name="eliminar"
 									class="btn btn-secondary" value="Eliminar" />
 							</div>

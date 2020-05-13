@@ -23,11 +23,11 @@
           <nav class="navbar-nav">
        
           	  <a class="nav-link text-white" href=../index.html>Inicio</a>
-              <a class="nav-link text-white" href=ListadoConcesionario.jsp>Concesionario</a>
-              <a class="nav-link text-white" href=ListadoCliente.jsp>Cliente</a>
-              <a class="nav-link text-white" href=ListadoCoche.jsp>Coche</a>
-              <a class="nav-link text-white" href=ListadoFabricante.jsp>Fabricante</a>
-              <a class="nav-link text-white" href=ListadoVentas.jsp>Ventas</a>
+              <a class="nav-link text-white" href=ListadoConcesionario.jsp?idPag=1>Concesionario</a>
+              <a class="nav-link text-white" href=ListadoCliente.jsp?idPag=1>Cliente</a>
+              <a class="nav-link text-white" href=ListadoCoche.jsp?idPag=1>Coche</a>
+              <a class="nav-link text-white" href=ListadoFabricante.jsp?idPag=1>Fabricante</a>
+              <a class="nav-link text-white" href=ListadoVentas.jsp?idPag=1>Ventas</a>
              
           </nav>
      </div>

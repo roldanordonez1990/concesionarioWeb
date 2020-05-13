@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import model.Cliente;
 import model.Concesionario;
 import model.Controlador;
 
@@ -116,7 +117,10 @@ public class ConcesionarioControlador extends Controlador {
 		}
 	}
 
-	
+	/**
+	 * 
+	 * @return
+	 */
 	
 	
 	public List<Concesionario> findAll () {
@@ -125,6 +129,37 @@ public class ConcesionarioControlador extends Controlador {
 		List<Concesionario> resultado = (List<Concesionario>) q.getResultList();
 		em.close();
 		return resultado;
+	}
+	
+	/**
+	 * 
+	 * @param cliente Este método nos limitará los resultados con un límite
+	 * @return
+	 */
+	
+	public List<Concesionario> findAllLimited (int limit, int offset) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		Query q = em.createQuery("SELECT c FROM Concesionario c", Concesionario.class);
+		q.setMaxResults(limit);
+		q.setFirstResult(offset);
+		List<Concesionario> resultado = (List<Concesionario>) q.getResultList();
+		em.close();
+		return resultado;
+	}
+	
+	/**
+	 * 
+	 * @param cliente
+	 * @return Este método nos devuelve un entero con la cantidad total de registros
+	 */
+	
+	public int numRegistros() {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		Query q = em.createNativeQuery("SELECT count(*) FROM Concesionario");
+		Long cantidad = (Long) q.getSingleResult();
+		em.close();
+		return cantidad.intValue();
+		
 	}
 	
 

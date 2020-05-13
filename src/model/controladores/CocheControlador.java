@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import model.Cliente;
 import model.Coche;
 import model.Controlador;
 
@@ -146,6 +147,37 @@ public class CocheControlador extends Controlador {
 		List<Coche> resultado = (List<Coche>) q.getResultList();
 		em.close();
 		return resultado;
+	}
+	
+	/**
+	 * 
+	 * @param cliente Este método nos limitará los resultados con un límite
+	 * @return
+	 */
+	
+	public List<Coche> findAllLimited (int limit, int offset) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		Query q = em.createQuery("SELECT c FROM Coche c", Coche.class);
+		q.setMaxResults(limit);
+		q.setFirstResult(offset);
+		List<Coche> resultado = (List<Coche>) q.getResultList();
+		em.close();
+		return resultado;
+	}
+	
+	/**
+	 * 
+	 * @param cliente
+	 * @return Este método nos devuelve un entero con la cantidad total de registros
+	 */
+	
+	public int numRegistros() {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		Query q = em.createNativeQuery("SELECT count(*) FROM Coche");
+		Long cantidad = (Long) q.getSingleResult();
+		em.close();
+		return cantidad.intValue();
+		
 	}
 	
 
