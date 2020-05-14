@@ -174,11 +174,11 @@ if (RequestUtils.getStringParameterFromHashMap(hashMap, "guardar") != null) {
 						</div>
 						
 						<div class="form-group row">
-							<label class="col-lg-3 col-form-label form-check-label"
+							<label class="col-lg-3 col-form-label form-check-label "
 								for="activo">Activo:</label>
 								
 							<div class="col-lg-9">
-								<input name="activo" class="form-check-input" type="checkbox" 
+								<input name="activo" class="form-check-input justify-content-right" type="checkbox" 
 								id="activo" value="<%= true %>"/>
 							</div>
 						</div>

@@ -1,7 +1,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page 
 
-	import="java.util.List, 
+	import="java.util.List,
 	java.util.HashMap,
 	utils.RequestUtils,
 	model.Coche,
